@@ -13,7 +13,7 @@ Comment or remove the Second try-catch and re-run the script. catch clause don't
 
 ---
 
-I'm sorry, but I try to reproduce my issue with flydrive without success.
+I'm sorry, but I tried to reproduce my issue with flydrive, but without success.
 [flydrive_repro.ts](src/flydrive_repro.ts)
 
 My code exiting the node process with `Unhandled 'error' event` run `copyFromFs`,
