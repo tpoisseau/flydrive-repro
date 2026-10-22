@@ -14,19 +14,26 @@ async function copy(source: string, destination: string) {
 
 const assetsDir = join(import.meta.dirname, "../assets");
 
-const fakeFiles = Array.from({ length: 20 }, (_, index) => index);
+// Error happen with
+const fakeFiles = Array.from({ length: 20 }, (_, index) => String(index));
 
-const results = await Promise.all(
-  fakeFiles.values().map(async (file) => {
-    const succeed = await copy(resolve(join(assetsDir, `subdir/${file}`)), String(file));
+if (process.argv[2] === "--unhandled-error") {
+  // Normalizer throw an error with unsupported chars, before listening on stream error.
+  fakeFiles.push("#1");
+}
 
-    await setTimeout(randomInt(100, 500));
+try {
+  await Promise.all(
+    fakeFiles.values().map(async (file) => {
+      const succeed = await copy(resolve(join(assetsDir, `subdir/${file}`)), String(file));
 
-    return succeed;
-  }),
-);
+      await setTimeout(randomInt(100, 500));
 
-for (const [index, succeed] of results.entries()) {
-  const file = fakeFiles[index];
-  console.log(`${succeed ? "[succeed]" : "[failed]"} ${file}`);
+      console.log(`${succeed ? "[succeed]" : "[failed]"} subdir/${file}`);
+    }),
+  );
+} catch (error) {
+  // if --unhandled-error, this block is never executed
+  console.log("an error occurred");
+  console.log(error);
 }

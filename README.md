@@ -1,20 +1,13 @@
 ```console
 pnpm install
-node src/node_repro.ts
+node src/flydrive_repro.ts --unhandled-error
 ```
 
-Take a look to `src/node_repro.ts`.
-
-- First try-catch is OK.
-- Second try-catch is not working. `node:events:505`, `throw er; // Unhandled 'error' event`
-- So the third one in not run.
-
-Comment or remove the Second try-catch and re-run the script. catch clause don't run either.
-
----
-
-I'm sorry, but I tried to reproduce my issue with flydrive, but without success.
+~~I'm sorry, but I tried to reproduce my issue with flydrive, but without success.~~
 [flydrive_repro.ts](src/flydrive_repro.ts)
+
+<details>
+<summary><s>outdated supposition</s></summary>
 
 My code exiting the node process with `Unhandled 'error' event` run `copyFromFs`,
 from a `Disk` with `FSDriver`, run from an AdonisJS command, inside a service, using dependency injection.
@@ -46,12 +39,19 @@ to
 
 Also avoid the unhandled error. It may not be the better fix, but it is working.
 
+</details>
+
+**Using key with unsupported chars produce an error (by the normalizer), before an error listener is attached to the stream.**
+
 ---
 
-Even if my repro of unhandled event does not works, my flydrive repro show another issue.
+My flydrive repro show another issue.
 
 `copyFromFs` call generate the `destination` file (empty), even if the `source` does not exist.
 
 ```console
 node src/flydrive_repro.ts
+ls storage
 ```
+
+**Should only show the .gitignore and 1, 5, 10, 15, 19 copied files. But also show all missing files of `1-19` range**
