@@ -45,3 +45,13 @@ to
 ```
 
 Also avoid the unhandled error. It may not be the better fix, but it is working.
+
+---
+
+Even if my repro of unhandled event does not works, my flydrive repro show another issue.
+
+`copyFromFs` call generate the `destination` file (empty), even if the `source` does not exist.
+
+```console
+node src/flydrive_repro.ts
+```
