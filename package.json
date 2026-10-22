@@ -1,0 +1,32 @@
+{
+  "name": "flydrive-uncatchable-error",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "preview": "vp preview"
+  },
+  "dependencies": {
+    "flydrive": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "~6.0.3",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.14.0",
+      "onFail": "download"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "26.12.1",
+      "onFail": "download"
+    }
+  }
+}
