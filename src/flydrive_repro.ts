@@ -14,8 +14,11 @@ async function copy(source: string, destination: string) {
 
 const assetsDir = join(import.meta.dirname, "../assets");
 
-// Error happen with
 const fakeFiles = Array.from({ length: 20 }, (_, index) => String(index));
+
+// I'm wondering if it could be related to integer filenames but no.
+fakeFiles.push("prefix_1"); // exists
+fakeFiles.push("prefix_2"); // missing
 
 if (process.argv[2] === "--unhandled-error") {
   // Normalizer throw an error with unsupported chars, before listening on stream error.
@@ -29,7 +32,7 @@ try {
 
       await setTimeout(randomInt(100, 500));
 
-      console.log(`${succeed ? "[succeed]" : "[failed]"} subdir/${file}`);
+      console.log(`${succeed ? "[succeed]" : "[failed]"}\tsubdir/${file}`);
     }),
   );
 } catch (error) {
